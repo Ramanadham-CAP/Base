@@ -1,6 +1,7 @@
 import "./MainContainer.css";
 import { menuItems } from "../generic/constants";
-import Btable from "./Btable";
+import BTable from "./BTable";
+import BTabBar from "./BTabBar";
 
 interface ContainerProps {
   name: string;
@@ -11,7 +12,7 @@ const MainContainer: React.FC<ContainerProps> = ({ name }) => {
     case menuItems.m1:
       return (
         <div id="container">
-          <Btable />
+          <BTabBar />
         </div>
       );
 
