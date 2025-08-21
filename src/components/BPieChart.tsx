@@ -32,7 +32,7 @@ const EPieChart: React.FC = () => {
 
   const option = {
     title: {
-      text: "ECharts Pie Chart Example",
+      text: "ECharts Pie Chart",
       left: "center",
     },
     tooltip: {
@@ -88,14 +88,18 @@ const EPieChart: React.FC = () => {
 
   return (
     <div
-      className="ag-theme-alpine"
       style={{
         height: "calc(100vh - 120px)",
         width: "100%",
       }}
     >
       <div className="p-6 max-w-4xl mx-auto">
-        <ReactECharts option={option} style={{ height: 400 }} />
+        <ReactECharts
+          option={option}
+          style={{ height: "400px", width: "100%" }}
+          notMerge={true}
+          lazyUpdate={true}
+        />
       </div>
     </div>
   );

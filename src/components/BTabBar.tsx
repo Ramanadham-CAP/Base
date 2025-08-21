@@ -69,6 +69,7 @@ const BTabBar: React.FC = () => {
             style={{
               flexDirection: isTabletOrMobile ? "column" : "row",
               display: "flex",
+              flex: 1,
             }}
           >
             <BPieChart />

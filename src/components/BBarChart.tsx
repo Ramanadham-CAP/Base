@@ -72,14 +72,18 @@ const BBarChart: React.FC = () => {
 
   return (
     <div
-      className="ag-theme-alpine"
       style={{
         height: "calc(100vh - 120px)",
         width: "100%",
       }}
     >
       <div className="p-6 max-w-5xl mx-auto">
-        <ReactECharts option={option} />
+        <ReactECharts
+          option={option}
+          style={{ height: "400px", width: "100%" }}
+          notMerge={true}
+          lazyUpdate={true}
+        />
       </div>
     </div>
   );
