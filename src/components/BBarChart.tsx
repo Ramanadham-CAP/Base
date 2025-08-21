@@ -1,23 +1,5 @@
 import React from "react";
-import { Bar } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+import ReactECharts from "echarts-for-react";
 
 const BBarChart: React.FC = () => {
   const factors = [
@@ -48,25 +30,43 @@ const BBarChart: React.FC = () => {
     "#FFC107",
   ];
 
-  const data = {
-    labels: factors,
-    datasets: [
+  const option = {
+    title: {
+      text: "ECharts Bar Chart",
+      left: "center",
+    },
+    tooltip: {
+      trigger: "item",
+    },
+    xAxis: {
+      type: "category",
+      data: factors,
+      axisLabel: {
+        rotate: 30,
+      },
+    },
+    yAxis: {
+      type: "value",
+    },
+    series: [
       {
-        label: "Random Values",
-        data: values,
-        backgroundColor: colors,
+        name: "Values",
+        type: "bar",
+        data: values.map((v, i) => ({
+          value: v,
+          itemStyle: { color: colors[i] },
+        })),
+        barWidth: "60%",
       },
     ],
-  };
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: { display: true },
-      title: {
-        display: true,
-        text: "Bar Chart",
-      },
+    legend: {
+      show: true,
+      bottom: 0,
+      data: factors.map((f, i) => ({
+        name: f,
+        icon: "circle",
+        textStyle: { color: "#333" },
+      })),
     },
   };
 
@@ -78,22 +78,8 @@ const BBarChart: React.FC = () => {
         width: "100%",
       }}
     >
-      <div className="p-6 max-w-4xl mx-auto">
-        <Bar data={data} options={options} />
-
-        <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
-          {factors.map((factor, i) => (
-            <div key={i} className="flex items-center text-left space-x-2">
-              <span
-                className="inline-block w-3 h-3 rounded-full"
-                style={{ backgroundColor: colors[i] }}
-              ></span>
-              <span>
-                {factor}: {values[i]}
-              </span>
-            </div>
-          ))}
-        </div>
+      <div className="p-6 max-w-5xl mx-auto">
+        <ReactECharts option={option} />
       </div>
     </div>
   );

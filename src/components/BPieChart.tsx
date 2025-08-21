@@ -1,55 +1,89 @@
 import React from "react";
-import {
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-} from "@ionic/react";
-import { Pie } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-ChartJS.register(ArcElement, Tooltip, Legend);
+import ReactECharts from "echarts-for-react";
 
-const getRandomColor = () =>
-  "#" + Math.floor(Math.random() * 16777215).toString(16);
-
-const BPieChart: React.FC = () => {
+const EPieChart: React.FC = () => {
   const factors = [
-    "Quality",
-    "Speed",
-    "Reliability",
-    "Scalability",
-    "Security",
-    "UX Design",
-    "Accessibility",
-    "Cost Efficiency",
-    "Support",
-    "Innovation",
+    "Factor 1",
+    "Factor 2",
+    "Factor 3",
+    "Factor 4",
+    "Factor 5",
+    "Factor 6",
+    "Factor 7",
+    "Factor 8",
+    "Factor 9",
+    "Factor 10",
   ];
 
   const values = factors.map(() => Math.floor(Math.random() * 100) + 10);
-  const colors = factors.map(() => getRandomColor());
 
-  const data = {
-    labels: factors,
-    datasets: [
+  const colors = [
+    "#FF6384",
+    "#36A2EB",
+    "#FFCE56",
+    "#4BC0C0",
+    "#9966FF",
+    "#FF9F40",
+    "#8BC34A",
+    "#E91E63",
+    "#2196F3",
+    "#FFC107",
+  ];
+
+  const option = {
+    title: {
+      text: "ECharts Pie Chart Example",
+      left: "center",
+    },
+    tooltip: {
+      trigger: "item",
+      formatter: "{b}: {c} ({d}%)",
+    },
+    legend: {
+      orient: "vertical",
+      left: "left",
+      data: factors.map((f) => f),
+      icon: "circle",
+      textStyle: { color: "#333" },
+    },
+    series: [
       {
-        label: "Factors",
-        data: values,
-        backgroundColor: colors,
-        borderColor: "#fff",
-        borderWidth: 2,
+        name: "Factors",
+        type: "pie",
+        radius: "65%",
+        center: ["50%", "55%"],
+        data: factors.map((f, i) => ({
+          value: values[i],
+          name: f,
+          itemStyle: { color: colors[i] },
+        })),
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: "rgba(0, 0, 0, 0.5)",
+          },
+        },
       },
     ],
-  };
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        display: false,
+    media: [
+      {
+        query: { maxWidth: 600 },
+        option: {
+          legend: {
+            orient: "horizontal",
+            bottom: 0,
+            left: "center",
+          },
+          series: [
+            {
+              radius: "60%",
+              center: ["50%", "45%"],
+            },
+          ],
+        },
       },
-    },
+    ],
   };
 
   return (
@@ -60,41 +94,11 @@ const BPieChart: React.FC = () => {
         width: "100%",
       }}
     >
-      <div className="ion-padding flex flex-col items-center">
-        <div>
-          <div
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <div className="w-full max-w-md">
-              <Pie data={data} options={options} />
-            </div>
-
-            <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
-              {factors.map((factor, i) => (
-                <div
-                  key={i}
-                  className="flex items-center justify-start text-left"
-                >
-                  <span
-                    className="inline-block w-4 h-4 rounded-full mr-2 border border-gray-300 flex-shrink-0"
-                    style={{ backgroundColor: colors[i] }}
-                  ></span>
-                  <span>
-                    {factor}: {values[i]}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+      <div className="p-6 max-w-4xl mx-auto">
+        <ReactECharts option={option} style={{ height: 400 }} />
       </div>
     </div>
   );
 };
 
-export default BPieChart;
+export default EPieChart;
