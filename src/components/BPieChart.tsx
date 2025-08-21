@@ -60,7 +60,7 @@ const BPieChart: React.FC = () => {
         width: "100%",
       }}
     >
-      <IonContent className="ion-padding flex flex-col items-center">
+      <div className="ion-padding flex flex-col items-center">
         <div>
           <div
             style={{
@@ -92,7 +92,7 @@ const BPieChart: React.FC = () => {
             </div>
           </div>
         </div>
-      </IonContent>
+      </div>
     </div>
   );
 };
