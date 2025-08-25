@@ -245,6 +245,8 @@ const FinanceTable: React.FC<Props> = ({
           defaultColDef={defaultColDef}
           cellSelection={true}
           enableCharts
+          pagination={true}
+          paginationPageSize={100}
           rowGroupPanelShow="always"
           suppressAggFuncInHeader
           groupDefaultExpanded={-1}
