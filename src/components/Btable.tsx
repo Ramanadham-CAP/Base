@@ -1,16 +1,48 @@
-import React, { useState, useMemo } from "react";
-import {
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-} from "@ionic/react";
+// AgGridPage.tsx
+import React, { useMemo, useCallback } from "react";
 import { AgGridReact } from "ag-grid-react";
-import { themeMaterial } from "ag-grid-community";
-import { ModuleRegistry, AllCommunityModule } from "ag-grid-community";
+import {
+  ModuleRegistry,
+  AllCommunityModule,
+  themeMaterial,
+} from "ag-grid-community";
+import { MasterDetailModule } from "ag-grid-enterprise";
 
-ModuleRegistry.registerModules([AllCommunityModule]);
+ModuleRegistry.registerModules([AllCommunityModule, MasterDetailModule]);
+
+const DetailRenderer: React.FC<any> = (props) => {
+  const d = props.data;
+  console.log(props);
+  return (
+    <div style={{ padding: 12 }}>
+      <h4 style={{ margin: "0 0 8px" }}>Details for Row {d.id}</h4>
+      <table
+        style={{ width: "100%", borderCollapse: "collapse", marginTop: 12 }}
+      >
+        <thead>
+          <tr>
+            <th style={{ border: "1px solid #ddd", padding: 6 }}>Attr</th>
+            <th style={{ border: "1px solid #ddd", padding: 6 }}>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style={{ border: "1px solid #ddd", padding: 6 }}>Email</td>
+            <td style={{ border: "1px solid #ddd", padding: 6 }}>
+              {`user${d.id}@example.com`}
+            </td>
+          </tr>
+          <tr>
+            <td style={{ border: "1px solid #ddd", padding: 6 }}>Joined</td>
+            <td style={{ border: "1px solid #ddd", padding: 6 }}>
+              {2020 + (d.id % 5)}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+};
 
 const AgGridPage: React.FC = () => {
   const columnDefs = useMemo(
@@ -28,7 +60,7 @@ const AgGridPage: React.FC = () => {
   const rowData = useMemo(
     () =>
       Array.from({ length: 30000 }, (_, rowIndex) => {
-        let row: any = {};
+        const row: any = { id: rowIndex + 1 };
         for (let col = 1; col <= 15; col++) {
           row[`col${col}`] = `Row ${rowIndex + 1} - Col ${col}`;
         }
@@ -37,20 +69,26 @@ const AgGridPage: React.FC = () => {
     []
   );
 
+  const isRowMaster = useCallback(() => true, []);
+
   return (
     <div
-      className="ag-theme-alpine"
       style={{
         height: "calc(100vh - 120px)",
         width: "100%",
       }}
     >
       <AgGridReact
+        theme={themeMaterial}
         rowData={rowData}
         columnDefs={columnDefs}
-        pagination={true}
+        pagination
         paginationPageSize={20}
-        theme={themeMaterial}
+        masterDetail
+        isRowMaster={isRowMaster}
+        detailRowHeight={220}
+        detailCellRenderer={DetailRenderer}
+        onRowClicked={(e) => e.node.setExpanded(!e.node.expanded)}
       />
     </div>
   );
