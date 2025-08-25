@@ -50,6 +50,7 @@ const BTable: React.FC = () => {
         sortable: true,
         filter: true,
         resizable: true,
+        pinned: i === 0 ? "left" : undefined,
       })),
     []
   );
