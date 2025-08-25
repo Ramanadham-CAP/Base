@@ -39,8 +39,8 @@ import {
 import { AgGridReact } from "ag-grid-react";
 import styles from "./FinanceTable.module.css";
 import { getData } from "./data";
-import { TickerCellRenderer } from "./renderers/TickerCellRenderer";
-import { sparklineTooltipRenderer } from "./renderers/sparklineTooltipRenderer";
+import { TickerCellRenderer } from "./views/TickerCellRenderer";
+import { sparklineTooltipRenderer } from "./views/sparklineTooltipRenderer";
 
 export interface Props {
   gridTheme?: string;

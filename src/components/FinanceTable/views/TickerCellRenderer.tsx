@@ -1,5 +1,4 @@
 import { type FunctionComponent } from "react";
-
 import type { CustomCellRendererProps } from "ag-grid-react";
 
 export const TickerCellRenderer: FunctionComponent<CustomCellRendererProps> = ({
