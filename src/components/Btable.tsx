@@ -6,12 +6,10 @@ import {
   themeMaterial,
 } from "ag-grid-community";
 import { MasterDetailModule } from "ag-grid-enterprise";
-
 ModuleRegistry.registerModules([AllCommunityModule, MasterDetailModule]);
 
 const DetailRenderer: React.FC<any> = (props) => {
   const d = props.data;
-  console.log(props);
   return (
     <div style={{ padding: 12 }}>
       <h4 style={{ margin: "0 0 8px" }}>Details for Row {d.id}</h4>
@@ -59,7 +57,7 @@ const BTable: React.FC = () => {
   const rowData = useMemo(
     () =>
       Array.from({ length: 30000 }, (_, rowIndex) => {
-        const row: any = { id: rowIndex + 1 };
+        let row: any = { id: rowIndex + 1 };
         for (let col = 1; col <= 15; col++) {
           row[`col${col}`] = `Row ${rowIndex + 1} - Col ${col}`;
         }
@@ -68,10 +66,9 @@ const BTable: React.FC = () => {
     []
   );
 
-  const isRowMaster = useCallback(() => true, []);
-
   return (
     <div
+      className="ag-theme-alpine"
       style={{
         height: "calc(100vh - 120px)",
         width: "100%",
@@ -81,10 +78,9 @@ const BTable: React.FC = () => {
         theme={themeMaterial}
         rowData={rowData}
         columnDefs={columnDefs}
-        pagination
-        paginationPageSize={20}
+        pagination={true}
+        paginationPageSize={100}
         masterDetail
-        isRowMaster={isRowMaster}
         detailRowHeight={220}
         detailCellRenderer={DetailRenderer}
         onRowClicked={(e) => e.node.setExpanded(!e.node.expanded)}

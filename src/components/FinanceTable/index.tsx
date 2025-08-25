@@ -17,8 +17,6 @@ import {
   type ValueGetterParams,
   themeMaterial,
 } from "ag-grid-community";
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-quartz.css";
 import {
   AdvancedFilterModule,
   CellSelectionModule,
@@ -225,6 +223,7 @@ const FinanceTable: React.FC<Props> = ({
 
   return (
     <div
+      className="ag-theme-alpine"
       style={{
         height: "calc(100vh - 120px)",
         width: "100%",
