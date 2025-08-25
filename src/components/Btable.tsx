@@ -1,4 +1,3 @@
-// AgGridPage.tsx
 import React, { useMemo, useCallback } from "react";
 import { AgGridReact } from "ag-grid-react";
 import {
@@ -44,7 +43,7 @@ const DetailRenderer: React.FC<any> = (props) => {
   );
 };
 
-const AgGridPage: React.FC = () => {
+const BTable: React.FC = () => {
   const columnDefs = useMemo(
     () =>
       Array.from({ length: 15 }, (_, i) => ({
@@ -94,4 +93,4 @@ const AgGridPage: React.FC = () => {
   );
 };
 
-export default AgGridPage;
+export default BTable;
